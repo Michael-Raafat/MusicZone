@@ -17,11 +17,6 @@ RSpec.describe Track, type: :model do
 	  	expect(subject).to_not be_valid
 	  end
 	  
-	  it "is not valid without an audio" do
-	  	subject.audio = nil
-	  	expect(subject).to_not be_valid
-	  end
-	  
 	  it { should validate_uniqueness_of(:title) }
   end
 
