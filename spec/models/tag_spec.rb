@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is valid with valid attributes"
+  it "is not valid without a genre"
+  it "is not valid without a unique genre"
 end
