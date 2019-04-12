@@ -4,5 +4,5 @@ class Track < ActiveRecord::Base
   has_many :tags, :through => :track_tags
   validates_presence_of :title, :admin_user, :audio
   validates_uniqueness_of :title
-  mount_uploader :audio, AudioUploader
+  #mount_uploader :audio, AudioUploader
 end
