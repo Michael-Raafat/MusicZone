@@ -1,0 +1,4 @@
+insert_tag active_admin_create_for resource do |f|
+  inputs :title, :body
+  actions
+end
