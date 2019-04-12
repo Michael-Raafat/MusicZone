@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_213741) do
+ActiveRecord::Schema.define(version: 2019_04_12_024523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,4 +41,30 @@ ActiveRecord::Schema.define(version: 2019_04_10_213741) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "genre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "track_tags", force: :cascade do |t|
+    t.bigint "track_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_track_tags_on_tag_id"
+    t.index ["track_id"], name: "index_track_tags_on_track_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string "title"
+    t.bigint "admin_user_id"
+    t.string "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_tracks_on_admin_user_id"
+  end
+
+  add_foreign_key "track_tags", "tags"
+  add_foreign_key "track_tags", "tracks"
 end
