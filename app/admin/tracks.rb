@@ -12,4 +12,13 @@ ActiveAdmin.register Track do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+  form do |f|
+    f.inputs "Track" do
+      f.input :title
+      f.file_field :audio, as: File, multiple: true
+    end
+    f.actions
+  end
+
+  permit_params :title, :audio
 end

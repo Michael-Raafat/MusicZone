@@ -3,7 +3,7 @@ class CreateTracks < ActiveRecord::Migration[5.2]
     create_table :tracks do |t|
       t.string :title
       t.belongs_to :admin_user, index: true
-      t.string :path
+      t.string :audio
 
       t.timestamps
     end
