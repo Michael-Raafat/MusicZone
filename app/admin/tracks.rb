@@ -12,13 +12,35 @@ ActiveAdmin.register Track do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-  form do |f|
+  permit_params :title, :audio
+
+  form(:html => { :multipart => true }) do |f|
+    # byebug
+    f.semantic_errors *f.object.errors.keys
+    f.object.admin_user_id = 1
+    puts f.object.inspect
     f.inputs "Track" do
       f.input :title
-      f.file_field :audio, as: File, multiple: true
+      f.file_field :audio, as: :file
     end
     f.actions
   end
 
-  permit_params :title, :audio
+  index do
+    selectable_column
+    column :id
+    column :title
+    column :created_at
+    column :updated_at
+    column 'Audio' do |track|
+      span do
+        "<audio controls>
+          <source src='#{track.audio.url}' type='audio/mp3'>
+          Your browser does not support the audio element.
+        </audio>".html_safe
+      end
+    end
+    actions
+  end
+
 end
