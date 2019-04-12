@@ -1,17 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  subject { described_class.new(genre: "classical") }
+  tag = FactoryBot.build(:tag)
+
   describe "Validations" do
     it "is valid with valid attributes" do
-    	expect(subject).to be_valid
+    	expect(tag).to be_valid
     end
-    it "is not valid without a genre" do
-    	subject.genre = nil
-    	expect(subject).to_not be_valid
+    it "is not valid without a value" do
+    	tag.value = nil
+    	expect(tag).to_not be_valid
     end
 
-    it { should validate_uniqueness_of(:genre) }
+    it { should validate_uniqueness_of(:value) }
+    it { should validate_presence_of(:value) }
   end
 
   describe "Associations" do
