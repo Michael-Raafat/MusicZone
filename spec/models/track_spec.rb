@@ -11,8 +11,8 @@ RSpec.describe Track, type: :model do
 	  it { should validate_presence_of(:admin_user) }
 
 	  it "is not valid without a title" do
-	  	subject.title = nil
-	  	expect(subject).to_not be_valid
+	  	valid_track.title = nil
+	  	expect(valid_track).to_not be_valid
 	  end
 
 	  it { should validate_uniqueness_of(:title) }

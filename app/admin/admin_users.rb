@@ -25,4 +25,16 @@ ActiveAdmin.register AdminUser do
     f.actions
   end
 
+  show do
+    panel "Admin User Details" do
+      attributes_table_for admin_user do
+        row :email
+        row :created_at
+        row :updated_at
+        row "Uploaded tracks" do |admin_user|
+          link_to "Uploaded tracks!", admin_tracks_path(q: { admin_user_id_eq: admin_user.id })
+        end
+      end
+    end
+  end
 end
