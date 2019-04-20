@@ -1,24 +1,22 @@
 
 ActiveAdmin.register Track do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-  permit_params :title, :audio
+  permit_params :title, :audio, :admin_user_id
+  filter :admin_user, :collection => proc {(AdminUser.all).map{|c| [c.email, c.id]}}
+  filter :title
+  filter :tags, as: :select, multiple: true
+  filter :created_at
+  filter :updated_at
+
+
+  controller do
+    def create
+      params[:track].merge!(admin_user_id: current_admin_user.id)
+      create!
+    end
+  end
 
   form(:html => { :multipart => true }) do |f|
-    # byebug
     f.semantic_errors *f.object.errors.keys
-    f.object.admin_user_id = 1
-    puts f.object.inspect
     f.inputs "Track" do
       f.input :title
       f.file_field :audio, as: :file
@@ -30,6 +28,7 @@ ActiveAdmin.register Track do
     selectable_column
     column :id
     column :title
+    column :admin_user
     column :created_at
     column :updated_at
     column 'Audio' do |track|
@@ -43,4 +42,22 @@ ActiveAdmin.register Track do
     actions
   end
 
+  show do
+    attributes_table do
+      row :title
+      row 'Uploader' do |t|
+        t.admin_user
+      end
+      row 'Audio File' do |t|
+        span do
+          "<audio controls>
+            <source src='#{t.audio.url}' type='audio/mp3'>
+            Your browser does not support the audio element.
+          </audio>".html_safe
+        end
+      end
+      row :created_at
+      row :updated_at
+    end
+  end
 end
