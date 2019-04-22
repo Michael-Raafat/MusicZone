@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TrackListenerControllerController, type: :controller do
+RSpec.describe TrackListenerController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
