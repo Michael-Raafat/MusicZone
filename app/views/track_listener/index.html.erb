@@ -1,3 +1,16 @@
+<script>
+function play() {
+       var audio = document.getElementById('audio');
+       if (audio.paused) {
+           audio.play();
+           $('#play').addClass('icon-control-pause i-x')
+       } else{
+           audio.pause();
+           audio.currentTime = 0
+           $('#play').removeClass('icon-control-pause i-x')
+       }
+   }
+  </script>
 <section>
     <section class="vbox">
         <section class="scrollable padder-lg w-f-md" id="bjax-target"><a
@@ -12,30 +25,31 @@
                     class="bar5 a5 bg-danger dker"></span> </span></h2>
             <div class="row row-sm">
               <% @tracks.each do |track| -%>
-                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" >
+                    <audio id="audio" src="<%= track.audio.url %>" ></audio>
                     <div class="item">
-                        <div class="pos-rlt">
-                            <div class="bottom"><span
-                                    class="badge bg-info m-l-sm m-b-sm">03:20</span></div>
-                            <div class="item-overlay opacity r r-2x bg-black">
-                                <div class="text-info padder m-t-sm text-sm"><i
-                                        class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                        class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                        class="fa fa-star-o text-muted"></i></div>
-                                <div class="center text-center m-t-n"><a
-                                        href= "<%= track.audio %>" ><i
-                                        class="icon-control-play i-2x"></i></a></div>
-                                <div class="bottom padder m-b-sm"><a
-                                        href= "<%= track.audio %>"
-                                        class="pull-right"> <i class="fa fa-heart-o"></i> </a> <a
-                                        href= "<%= track.audio %>" <i
-                                        class="fa fa-plus-circle"></i> </a></div>
+                        <div class="pos-rlt" >
+                            <div class="bottom"  ><span
+                                    class="badge bg-info m-l-sm m-b-sm" >
+                                    </span></div>
+                            <div class="item-overlay opacity r r-2x bg-black" >
+                                <div class="text-info padder m-t-sm text-sm" ><i
+                                        class="fa fa-star" ></i> <i class="fa fa-star"></i> <i
+                                        class="fa fa-star" ></i> <i class="fa fa-star"></i> <i
+                                        class="fa fa-star-o text-muted" ></i></div>
+                                <div class="center text-center m-t-n" ><a><i
+                                        id="play"
+                                        class="icon-control-play i-2x"
+                                        onclick="play()"></i></a></div>
+                                <div class="bottom padder m-b-sm" ><a
+                                        class="pull-right" > <i class="fa fa-heart-o"></i> </a> <a> <i
+                                        class="fa fa-plus-circle" ></i> </a></div>
                             </div>
-                            <a href= <%= track.audio %> ><img
+                            <a><img
                                     src="/assets/p1.jpg" alt=""
                                     class="r r-2x img-full"></a></div>
-                        <div class="padder-v"><a href= "<%= track.audio %>"
-                                                 class="text-ellipsis"> <%= track.title %> </a>
+                        <div class="padder-v" >
+                          <a class="text-ellipsis"> <%= track.title %> </a>
                        </div>
                     </div>
                 </div>
