@@ -1,6 +1,9 @@
 <script>
 function play() {
        var audio = document.getElementById('audio');
+       audio.onended = function() {
+         $('#play').removeClass('icon-control-pause i-x')
+       };
        if (audio.paused) {
            audio.play();
            $('#play').addClass('icon-control-pause i-x')
