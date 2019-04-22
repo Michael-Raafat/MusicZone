@@ -1,6 +1,6 @@
 
 ActiveAdmin.register Track do
-  permit_params :title, :audio, :admin_user_id, :tag_ids
+  permit_params :title, :audio, :admin_user_id, tag_ids: []
   filter :admin_user, :collection => proc {(AdminUser.all).map{|c| [c.email, c.id]}}
   filter :title
   filter :tags, as: :select, multiple: true
@@ -64,7 +64,16 @@ ActiveAdmin.register Track do
       end
       row :created_at
       row :updated_at
-      row :tag
+    end
+  end
+
+  sidebar "Tags", only: :show do
+    if resource.tags.any?
+      table_for resource.tags do
+        column "" do |tag|
+          link_to tag.value, [ :admin, tag ]
+        end
+      end
     end
   end
 end
