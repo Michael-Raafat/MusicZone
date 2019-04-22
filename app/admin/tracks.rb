@@ -1,6 +1,6 @@
 
 ActiveAdmin.register Track do
-  permit_params :title, :audio, :admin_user_id
+  permit_params :title, :audio, :admin_user_id, :tag_ids
   filter :admin_user, :collection => proc {(AdminUser.all).map{|c| [c.email, c.id]}}
   filter :title
   filter :tags, as: :select, multiple: true
@@ -13,6 +13,11 @@ ActiveAdmin.register Track do
       params[:track].merge!(admin_user_id: current_admin_user.id)
       create!
     end
+
+    def update
+      params[:track].merge!(admin_user_id: current_admin_user.id)
+      update!
+    end
   end
 
   form(:html => { :multipart => true }) do |f|
@@ -20,6 +25,7 @@ ActiveAdmin.register Track do
     f.inputs "Track" do
       f.input :title
       f.file_field :audio, as: :file
+      f.input :tags
     end
     f.actions
   end
@@ -58,6 +64,7 @@ ActiveAdmin.register Track do
       end
       row :created_at
       row :updated_at
+      row :tag
     end
   end
 end
