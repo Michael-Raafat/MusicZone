@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'tags/index'
+  post 'tags/create'
   get 'track_listener/index'
   get 'users/home'
   devise_for :users
