@@ -1,20 +1,20 @@
   <script>
-    function play() {
-       var audio = document.getElementById('audio');
+    function play(ele) {
+       var audio = document.getElementById("audio-" + ele.id.split("-")[1]);
 
        audio.ontimeupdate = function() {
-         document.getElementById("timer").innerHTML = Math.floor(audio.currentTime) + ' : ' + Math.floor(audio.duration);
+         document.getElementById("timer-" + ele.id.split("-")[1]).innerHTML = Math.floor(audio.currentTime) + ' : ' + Math.floor(audio.duration);
        };
        audio.onended = function() {
-         $('#play').removeClass('icon-control-pause i-x')
+         $('#' + ele.id).removeClass('icon-control-pause i-x')
        };
        if (audio.paused) {
            audio.play();
-           $('#play').addClass('icon-control-pause i-x')
+           $('#' + ele.id).addClass('icon-control-pause i-x')
        } else {
            audio.pause();
            audio.currentTime = 0
-           $('#play').removeClass('icon-control-pause i-x')
+           $('#' + ele.id).removeClass('icon-control-pause i-x')
        }
      }
   </script>
@@ -33,10 +33,9 @@
           <div class="row row-sm">
             <% @tracks.each do |track| -%>
               <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" >
-                  <audio id="audio" src="<%= track.audio.url %>" ></audio>
                   <div class="item">
                       <div class="pos-rlt" >
-                        <div class="bottom"  ><span id = "timer"
+                        <div class="bottom"  ><span id = "timer-<%=track.id%>"
                                 class="badge bg-info m-l-sm m-b-sm">0:00
                                 </span></div>
                           <div class="item-overlay opacity r r-2x bg-black" >
@@ -44,10 +43,12 @@
                                       class="fa fa-star" ></i> <i class="fa fa-star"></i> <i
                                       class="fa fa-star" ></i> <i class="fa fa-star"></i> <i
                                       class="fa fa-star-o text-muted" ></i></div>
-                              <div class="center text-center m-t-n" ><a><i
-                                      id="play"
+                              <div class="center text-center m-t-n" >
+                                <audio id="audio-<%=track.id%>" src="<%= track.audio.url %>" ></audio>
+                                <a>
+                                  <i id="play-<%=track.id%>"
                                       class="icon-control-play i-2x"
-                                      onclick="play()"></i></a></div>
+                                      onclick="play(this)"></i></a></div>
                               <div class="bottom padder m-b-sm" ><a
                                       class="pull-right" > <i class="fa fa-heart-o"></i> </a> <a> <i
                                       class="fa fa-plus-circle" ></i> </a></div>
