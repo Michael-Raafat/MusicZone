@@ -36,5 +36,23 @@ RSpec.describe TagsController, type: :controller do
       get :index
       expect(assigns(:tags)).to match_array([tag])
     end
+
+    it "user tags are correct" do
+      new_tags = FactoryBot.create_list(:tag, 6)
+      user.tags = [new_tags[1], new_tags[3], new_tags[5]]
+      user.save
+      get :index
+      expect(assigns(:user).tags).to match_array([new_tags[1], new_tags[3], new_tags[5]])
+    end
+  end
+
+  describe "POST #create" do
+    it "edit tags correctly" do
+      new_tags = FactoryBot.create_list(:tag, 6)
+      user.tags = [new_tags[1], new_tags[3], new_tags[5]]
+      user.save
+      patch :create, params: { options: [new_tags[0], new_tags[1], new_tags[4]] }
+      expect(user.reload.tags).to match_array([new_tags[0], new_tags[1], new_tags[4]])
+    end
   end
 end
