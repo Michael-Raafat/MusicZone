@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  get 'tags/index'
-  post 'tags/create'
-  get 'track_listener/index'
-  get 'users/home'
+  resources :tags, only: [:index, :create]
+  resources :track_listener, only: [:index, :create]
+
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
