@@ -11,6 +11,3 @@ Tag.destroy_all
 TrackTag.destroy_all
 
 admin_user = AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
-track = Track.create!(title: 'imperial march', admin_user_id: admin_user.id, audio: '/musicFS/imperial_march.mp3') if Rails.env.development?
-tag = Tag.create!(genre: 'Orchestral') if Rails.env.development?
-TrackTag.create!(track_id: track.id, tag_id: tag.id) if Rails.env.development?
