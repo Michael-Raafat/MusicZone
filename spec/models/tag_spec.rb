@@ -17,7 +17,7 @@ RSpec.describe Tag, type: :model do
   end
 
   describe "Associations" do
-  	it { should have_many(:tracks) }
+  	it { should have_many(:user_tags) }
   	it { should have_many(:track_tags) }
   end
 end
