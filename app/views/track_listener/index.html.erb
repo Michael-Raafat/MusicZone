@@ -3,7 +3,12 @@
        var audio = document.getElementById("audio-" + ele.id.split("-")[1]);
 
        audio.ontimeupdate = function() {
-         document.getElementById("timer-" + ele.id.split("-")[1]).innerHTML = Math.floor(audio.currentTime) + ' : ' + Math.floor(audio.duration);
+         var seconds = Math.floor(audio.currentTime) % 60;
+         if (seconds < 10) {
+           seconds = '0' + seconds;
+         }
+         var minutes = Math.floor(Math.floor(audio.currentTime) / 60);
+         document.getElementById("timer-" + ele.id.split("-")[1]).innerHTML = minutes + ':' + seconds;
        };
        audio.onended = function() {
          $('#' + ele.id).removeClass('icon-control-pause i-x')
