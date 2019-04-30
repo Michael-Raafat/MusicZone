@@ -8,45 +8,31 @@ RSpec.describe TrackListenerController, type: :controller do
       sign_in user
   end
   describe "GET #index" do
-    it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
-
-    it "renders the :index view" do
-      get :index
-      expect(response).to render_template(:index)
-    end
-
-    it "redirect if not logged in" do
-      sign_out user
-      get :index
-      expect(response).to redirect_to(new_user_session_path)
-    end
+    # it "returns http success" do
+    #   get :index
+    #   expect(response).to have_http_status(:success)
+    # end
+    #
+    # it "renders the :index view" do
+    #   get :index
+    #   expect(response).to render_template(:index)
+    # end
+    #
+    # it "redirect if not logged in" do
+    #   sign_out user
+    #   get :index
+    #   expect(response).to redirect_to(new_user_session_path)
+    # end
 
     it "show tracks of user" do
       new_tracks = FactoryBot.create_list(:track, 4)
       new_tags = FactoryBot.create_list(:tag, 6)
-      new_trackTags = FactoryBot.create_list(:track_tag, 5)
-      new_trackTags[1].track_id = 1
-      new_trackTags[1].tag_id = 1
-      new_trackTags[2].track_id = 3
-      new_trackTags[2].tag_id = 1
-      new_trackTags[3].track_id = 2
-      new_trackTags[3].tag_id = 2
-      new_tracks[1].tags = [new_tags[1]]
-      new_tracks[2].tags = [new_tags[2]]
-      new_tracks[3].tags = [new_tags[1]]
-      user.tags = [new_tags[1]]
-      user.save
-      new_trackTags[1].save
-      new_trackTags[2].save
-      new_trackTags[3].save
-      new_tracks[1].save
-      new_tracks[2].save
-      new_tracks[3].save
+      TrackTag.create(:track => new_tracks[0], :tag => new_tags[0])
+      TrackTag.create(:track => new_tracks[2], :tag => new_tags[0])
+      TrackTag.create(:track => new_tracks[1], :tag => new_tags[2])
+      UserTag.create(:user => user, :tag => new_tags[0])
       get :index
-      expect(assigns(:tracks)).to match_array([new_tracks[1], new_tracks[3]])
+      expect(assigns(:tracks)).to match_array([new_tracks[0], new_tracks[2]])
     end
 
   end
