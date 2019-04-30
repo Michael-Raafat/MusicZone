@@ -3,10 +3,19 @@ require 'rails_helper'
 RSpec.describe TrackListenerController, type: :controller do
   include Devise::TestHelpers
   let(:user) { FactoryBot.create(:user) }
+
+  before do
+      sign_in user
+  end
   describe "GET #index" do
     it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
+    end
+
+    it "renders the :index view" do
+      get :index
+      expect(response).to render_template(:index)
     end
 
     it "redirect if not logged in" do
@@ -28,8 +37,14 @@ RSpec.describe TrackListenerController, type: :controller do
       new_tracks[1].tags = [new_tags[1]]
       new_tracks[2].tags = [new_tags[2]]
       new_tracks[3].tags = [new_tags[1]]
-      user.tags = [new_tags[1], new_tags[3], new_tags[5]]
+      user.tags = [new_tags[1]]
       user.save
+      new_trackTags[1].save
+      new_trackTags[2].save
+      new_trackTags[3].save
+      new_tracks[1].save
+      new_tracks[2].save
+      new_tracks[3].save
       get :index
       expect(assigns(:tracks)).to match_array([new_tracks[1], new_tracks[3]])
     end
