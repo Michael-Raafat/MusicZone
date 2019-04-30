@@ -11,7 +11,7 @@ protected
   end
 
   def set_tags
-    @tags = Tag.all
+    @tags_sidebar = Tag.all
   end
 
 end
