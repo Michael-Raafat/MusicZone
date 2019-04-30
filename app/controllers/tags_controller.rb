@@ -6,6 +6,7 @@ class TagsController < ApplicationController
 
   def create
     ids = params['options']
+    ids = [] if ids.nil?
     current_user.set_user_tags(ids)
     redirect_to root_path
   end
