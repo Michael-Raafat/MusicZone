@@ -10,4 +10,8 @@ class TagsController < ApplicationController
     current_user.set_user_tags(ids)
     redirect_to root_path
   end
+
+  def show
+    @tag = Tag.find(params[:id])
+  end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TrackListenerController, type: :controller do
+RSpec.describe TracksController, type: :controller do
   include Devise::TestHelpers
   let(:user) { FactoryBot.create(:user) }
 

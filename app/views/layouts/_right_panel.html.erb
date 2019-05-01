@@ -8,7 +8,8 @@
                         src="/images/tag.png" alt="..."
                         class="img-circle"></span>
                     <div class="clear">
-                        <div><a href="#"><%= tag.value %></a>
+                        <div>
+                          <%= link_to tag.value, tag_path(tag.id)%>
                         </div>
                         <small class="text-muted"><%= tag.value %></small>
                     </div>

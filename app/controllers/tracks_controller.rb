@@ -1,4 +1,4 @@
-class TrackListenerController < ApplicationController
+class TracksController < ApplicationController
   def index
     if current_user.tags.empty?
       redirect_to tags_path
