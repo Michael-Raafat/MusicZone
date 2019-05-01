@@ -11,7 +11,11 @@ ActiveAdmin.register Track do
   controller do
     def create
       params[:track].merge!(admin_user_id: current_admin_user.id)
+      tags = params[:track][:tag_ids]
+      params[:track].delete :tag_ids
       create!
+      resource.tag_ids = tags
+      resource.save
     end
 
     def update
