@@ -7,15 +7,11 @@ RSpec.describe TrackListenerController, type: :controller do
   before do
       sign_in user
   end
-  describe "GET #index" do
-     it "returns http success" do
-       get :index
-       expect(response).to have_http_status(:success)
-     end
 
-     it "renders the :index view" do
+  describe "GET #index" do
+     it "redirect when user have no tags" do
        get :index
-       expect(response).to render_template(:index)
+       expect(response).to have_http_status(:redirect)
      end
 
      it "redirect if not logged in" do
