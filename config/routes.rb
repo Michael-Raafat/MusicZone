@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :tags, only: [:index, :create, :show]
   resources :tracks, only: [:index]
+  resources :liked_tracks, only: [:index]
+  resources :favourite_tracks, only: [:index]
 
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config

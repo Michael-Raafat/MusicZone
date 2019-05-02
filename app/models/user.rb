@@ -5,8 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :user_tags, dependent: :destroy
   has_many :tags, :through => :user_tags
-  validates_presence_of :first_name, :last_name
 
+  has_many :user_favourites, dependent: :destroy
+  has_many :favourites, through: :user_favourites, source: :track
+
+  has_many :user_likes, dependent: :destroy
+  has_many :likes, through: :user_likes, source: :track
+
+  validates_presence_of :first_name, :last_name
 
   def set_user_tags(ids)
     tags = Tag.find(ids)
