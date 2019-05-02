@@ -13,5 +13,8 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find(params[:id])
+    trackTag = TrackTag.where(tag_id: params[:id])
+    track_ids = trackTag.select(:track_id)
+    @tracks = Track.where(id: track_ids)
   end
 end
