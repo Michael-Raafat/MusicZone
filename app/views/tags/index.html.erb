@@ -16,8 +16,8 @@
                   <div class="m-b-sm">
                     <div data-toggle="buttons">
                       <% @tags.each do |tag| -%>
-                        <label class="btn btn-rounded btn-lg btn-success<% if @user.tags.include?(tag) %> active<% end %>">
-                          <input type="checkbox" name="options[]" value="<%= tag.id %>" <% if @user.tags.include?(tag) %> checked <% end %>>
+                        <label class="btn btn-rounded btn-lg <% if @user.tags.include?(tag) %>btn-success active<% end %> <% if @user.tags.include?(tag) == false %>btn-default<% end %>">
+                          <input onchange="swapSelection(this)" type="checkbox" name="options[]" value="<%= tag.id %>" <% if @user.tags.include?(tag) %> checked <% end %>>
                           <%= tag.value %>
                         </label>
                       <% end %>
