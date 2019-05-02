@@ -64,6 +64,11 @@
                       <div class="padder-v" >
                         <a class="text-ellipsis"> <%= track.title %> </a>
                      </div>
+                     <div>
+                       <%track.tags.each do |tag| %>
+                        <a class="text-ellipsis"> <%= tag.value %> </a>
+                        <% end %>
+                    </div>
                   </div>
               </div>
               <div class="clearfix visible-xs"></div>
