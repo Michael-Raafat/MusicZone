@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_25_170440) do
+ActiveRecord::Schema.define(version: 2019_05_02_205427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,24 @@ ActiveRecord::Schema.define(version: 2019_04_25_170440) do
     t.index ["admin_user_id"], name: "index_tracks_on_admin_user_id"
   end
 
+  create_table "user_favourites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "track_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_user_favourites_on_track_id"
+    t.index ["user_id"], name: "index_user_favourites_on_user_id"
+  end
+
+  create_table "user_likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "track_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_user_likes_on_track_id"
+    t.index ["user_id"], name: "index_user_likes_on_user_id"
+  end
+
   create_table "user_tags", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "tag_id"
@@ -95,6 +113,10 @@ ActiveRecord::Schema.define(version: 2019_04_25_170440) do
 
   add_foreign_key "track_tags", "tags"
   add_foreign_key "track_tags", "tracks"
+  add_foreign_key "user_favourites", "tracks"
+  add_foreign_key "user_favourites", "users"
+  add_foreign_key "user_likes", "tracks"
+  add_foreign_key "user_likes", "users"
   add_foreign_key "user_tags", "tags"
   add_foreign_key "user_tags", "users"
 end

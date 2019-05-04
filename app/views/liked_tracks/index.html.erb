@@ -1,0 +1,80 @@
+<script>
+  function play(ele) {
+     var audio = document.getElementById("audio-" + ele.id.split("-")[1]);
+
+     audio.ontimeupdate = function() {
+       var seconds = Math.floor(audio.currentTime) % 60;
+       if (seconds < 10) {
+         seconds = '0' + seconds;
+       }
+       var minutes = Math.floor(Math.floor(audio.currentTime) / 60);
+       document.getElementById("timer-" + ele.id.split("-")[1]).innerHTML = minutes + ':' + seconds;
+     };
+     audio.onended = function() {
+       $('#' + ele.id).removeClass('icon-control-pause i-x')
+     };
+     if (audio.paused) {
+         audio.play();
+         $('#' + ele.id).addClass('icon-control-pause i-x')
+     } else {
+         audio.pause();
+         audio.currentTime = 0
+         $('#' + ele.id).removeClass('icon-control-pause i-x')
+     }
+   }
+</script>
+<section>
+  <section class="vbox">
+    <section class="scrollable padder-lg w-f-md" id="bjax-target"><a
+            href="http://flatfull.com/themes/musik/index.html#"
+            class="pull-right text-muted m-t-lg" data-toggle="class:fa-spin"><i
+            class="icon-refresh i-lg inline" id="refresh"></i></a>
+        <h2 class="font-thin m-b">Tracks you liked <span class="musicbar animate inline m-l-sm"
+                                                 style="width:20px;height:20px"> <span
+                class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span
+                class="bar3 a3 bg-success"></span> <span
+                class="bar4 a4 bg-warning dk"></span> <span
+                class="bar5 a5 bg-danger dker"></span> </span></h2>
+        <div class="row row-sm">
+          <% @tracks.each do |track| -%>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" >
+                <div class="item">
+                    <div class="pos-rlt" >
+                      <div class="bottom"  ><span id = "timer-<%=track.id%>"
+                              class="badge bg-info m-l-sm m-b-sm">0:00
+                              </span></div>
+                        <div class="item-overlay opacity r r-2x bg-black" >
+                            <div class="text-info padder m-t-sm text-sm" ><i
+                                    class="fa fa-star" ></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star" ></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star-o text-muted" ></i></div>
+                            <div class="center text-center m-t-n" >
+                              <audio id="audio-<%=track.id%>" src="<%= track.audio.url %>" ></audio>
+                              <a>
+                                <i id="play-<%=track.id%>"
+                                    class="icon-control-play i-2x"
+                                    onclick="play(this)"></i></a></div>
+                            <div class="bottom padder m-b-sm" ><a
+                                    class="pull-right" > <i class="fa fa-heart-o"></i> </a> <a> <i
+                                    class="fa fa-plus-circle" ></i> </a></div>
+                        </div>
+                        <a><img
+                                src="/assets/p1.jpg" alt=""
+                                class="r r-2x img-full"></a></div>
+                    <div class="padder-v" >
+                      <a class="text-ellipsis"> <%= track.title %> </a>
+                   </div>
+                   <div>
+                     <%track.tags.each do |tag| %>
+                      <a class="text-ellipsis"> <%= tag.value %> </a>
+                      <% end %>
+                  </div>
+                </div>
+            </div>
+            <div class="clearfix visible-xs"></div>
+         <% end %>
+        </div>
+    </section>
+
+  </section>
+</section>
