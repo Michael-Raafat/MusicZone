@@ -8,4 +8,9 @@ class FavouritesController < ApplicationController
       user.swap_track_favourites(tracks)
     end
   end
+
+  def index
+    @user = current_user
+    @tracks = current_user.favourites
+  end
 end
