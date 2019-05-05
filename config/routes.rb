@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :tags, only: [:index, :create, :show]
   resources :tracks, only: [:index]
+  resources :likes, only: [:create]
+  resources :favourites, only: [:create]
   resources :liked_tracks, only: [:index]
   resources :favourite_tracks, only: [:index]
 

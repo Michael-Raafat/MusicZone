@@ -1,4 +1,36 @@
 <script>
+  function swapLike(btn, trackId) {
+    $.ajax({
+      type: "POST",
+      url: "/likes",
+      data: { trackId: trackId }
+    })
+
+    if (btn.classList.contains("fa-heart-o")) {
+      btn.classList.remove("fa-heart-o");
+      btn.classList.add("fa-heart");
+    } else {
+      btn.classList.remove("fa-heart");
+      btn.classList.add("fa-heart-o");
+    }
+  }
+
+  function swapFavourite(btn, trackId) {
+    $.ajax({
+      type: "POST",
+      url: "/favourites",
+      data: { trackId: trackId }
+    })
+
+    if (btn.classList.contains("fa-check-circle")) {
+      btn.classList.remove("fa-check-circle");
+      btn.classList.add("fa-plus-circle");
+    } else {
+      btn.classList.remove("fa-plus-circle");
+      btn.classList.add("fa-check-circle");
+    }
+  }
+
   function play(ele) {
      var audio = document.getElementById("audio-" + ele.id.split("-")[1]);
 
@@ -54,9 +86,21 @@
                                 <i id="play-<%=track.id%>"
                                     class="icon-control-play i-2x"
                                     onclick="play(this)"></i></a></div>
-                            <div class="bottom padder m-b-sm" ><a
-                                    class="pull-right" > <i class="fa fa-heart-o"></i> </a> <a> <i
-                                    class="fa fa-plus-circle" ></i> </a></div>
+                          <div class="bottom padder m-b-sm">
+                            <% if @user.likes.include?(track) %>
+                              <a class="pull-right fa fa-heart" onclick="swapLike(this, <%=track.id%>)"></a>
+                            <% else %>
+                              <a class="pull-right fa fa-heart-o" onclick="swapLike(this, <%=track.id%>)"></a>
+                            <% end %>
+                            <% if @user.favourites.include?(track) %>
+                              <a class="fa fa-check-circle" onclick="swapFavourite(this, <%=track.id%>)"></a>
+                            <% else %>
+                              <a class="fa fa-plus-circle" onclick="swapFavourite(this, <%=track.id%>)"></a>
+                            <% end %>
+                            <!-- <a>
+                              <i class="fa fa-plus-circle" ></i>
+                            </a> -->
+                          </div>
                         </div>
                         <a><img
                                 src="/assets/p1.jpg" alt=""
@@ -65,9 +109,9 @@
                       <a class="text-ellipsis"> <%= track.title %> </a>
                    </div>
                    <div>
-                     <%track.tags.each do |tag| %>
+                    <%track.tags.each do |tag| %>
                       <a class="text-ellipsis"> <%= tag.value %> </a>
-                      <% end %>
+                    <% end %>
                   </div>
                 </div>
             </div>

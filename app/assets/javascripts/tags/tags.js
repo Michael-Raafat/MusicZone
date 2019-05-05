@@ -4,5 +4,6 @@ function swapSelection(btn) {
     btn.parentElement.classList.add("btn-default");
   } else {
     btn.parentElement.classList.remove("btn-default");
-    btn.parentElement.classList.add("btn-success");  }
+    btn.parentElement.classList.add("btn-success");
+  }
 }

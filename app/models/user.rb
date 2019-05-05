@@ -19,4 +19,22 @@ class User < ApplicationRecord
     self.tags = tags
     self.save
   end
+
+  def swap_track_liked(tracks)
+    if self.likes.where(id: tracks.ids).empty?
+      self.likes << tracks
+    else
+      self.likes.delete(tracks)
+    end
+    self.save
+  end
+
+  def swap_track_favourites(tracks)
+    if self.favourites.where(id: tracks.ids).empty?
+      self.favourites << tracks
+    else
+      self.favourites.delete(tracks)
+    end
+    self.save
+  end
 end
