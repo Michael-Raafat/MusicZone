@@ -30,7 +30,5 @@ RSpec.describe TracksController, type: :controller do
       get :index
       expect(assigns(:tracks)).to match_array([new_tracks[0], new_tracks[2]])
     end
-
   end
-
 end
