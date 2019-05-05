@@ -107,6 +107,9 @@
                                   class="r r-2x img-full"></a></div>
                       <div class="padder-v" >
                         <a class="text-ellipsis"> <%= track.title %> </a>
+
+                         <a class="text-ellipsis"><%track.tags.each do |tag| %> <%= tag.value %> <% end %></a>
+
                      </div>
                      <div>
                       <%track.tags.each do |tag| %>

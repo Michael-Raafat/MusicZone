@@ -29,7 +29,7 @@
             href="http://flatfull.com/themes/musik/index.html#"
             class="pull-right text-muted m-t-lg" data-toggle="class:fa-spin"><i
             class="icon-refresh i-lg inline" id="refresh"></i></a>
-        <h2 class="font-thin m-b">Discover <span class="musicbar animate inline m-l-sm"
+        <h2 class="font-thin m-b"> <%= @tag.value %> <span class="musicbar animate inline m-l-sm"
                                                  style="width:20px;height:20px"> <span
                 class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span
                 class="bar3 a3 bg-success"></span> <span
@@ -65,9 +65,7 @@
                       <a class="text-ellipsis"> <%= track.title %> </a>
                    </div>
                    <div>
-                     <%track.tags.each do |tag| %>
-                      <a class="text-ellipsis"> <%= tag.value %> </a>
-                      <% end %>
+
                   </div>
                 </div>
             </div>
