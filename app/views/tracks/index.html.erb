@@ -58,7 +58,7 @@
 <section>
     <section class="vbox">
       <section class="scrollable padder-lg w-f-md" id="bjax-target"><a
-              href="http://flatfull.com/themes/musik/index.html#"
+              href="#"
               class="pull-right text-muted m-t-lg" data-toggle="class:fa-spin"><i
               class="icon-refresh i-lg inline" id="refresh"></i></a>
           <h2 class="font-thin m-b">Your relevant tracks <span class="musicbar animate inline m-l-sm"
@@ -107,14 +107,11 @@
                                   class="r r-2x img-full"></a></div>
                       <div class="padder-v" >
                         <a class="text-ellipsis"> <%= track.title %> </a>
-
-                         <a class="text-ellipsis"><%track.tags.each do |tag| %> <%= tag.value %> <% end %></a>
-
+                        <%track.tags.each do |tag| %>
+                          <%= link_to tag.value, tag_path(tag.id), :class => "text-ellipsis text-xs text-muted"%>
+                        <% end %>
                      </div>
                      <div>
-                      <%track.tags.each do |tag| %>
-                        <a class="text-ellipsis"> <%= tag.value %> </a>
-                      <% end %>
                     </div>
                   </div>
               </div>
