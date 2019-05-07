@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :track do
     admin_user     { create(:admin_user) }
-    title          { Faker::Music::RockBand.name }
+    title          { |n| Faker::Music.album  + " (#{n})"}
   end
 end
