@@ -2,7 +2,7 @@
 function search() {
 
       // Retrieve the input field text and reset the count to zero
-      var filter = $('#filter').val().toUpperCase();
+      var filter = $('#filter').val().toUpperCase().trim();
 
       // Loop through the comment list
       tags = document.getElementById("tags");
@@ -11,12 +11,10 @@ function search() {
         tag = lis[i].getElementsByTagName("div");
 
         // If the list item does not contain the text phrase fade it out
-        if (tag[0].id.toUpperCase().indexOf(filter) < 0) {
-          $('#' + lis[i].id).hide();  // MY CHANGE
-
-          // Show the list item if the phrase matches and increase the count by 1
+        if (tag[0].id.toUpperCase().trim().indexOf(filter) < 0) {
+          $('#' + lis[i].id).hide();
         } else {
-          $('#' + lis[i].id).show(); // MY CHANGE
+          $('#' + lis[i].id).show();
         }
 
       }
@@ -28,7 +26,7 @@ function search() {
         <section class="w-f-md scrollable hover"><h4 class="font-thin m-l-md m-t">Connected</h4>
             <ul id= "tags" class="list-group no-bg no-borders auto m-t-n-xxs">
               <% @tags_sidebar.each do |tag| -%>
-                <li id='li-<%= tag.value %>'class="list-group-item"><span
+                <li id='li-<%=tag.value%>'class="list-group-item"><span
                         class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm"> <img
                         src="/images/tag.png" alt="..."
                         class="img-circle"></span>
