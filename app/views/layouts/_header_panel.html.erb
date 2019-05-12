@@ -2,7 +2,6 @@
     <div class="navbar-header aside bg-info nav-xs"><a class="btn btn-link visible-xs"
                                                        data-toggle="class:nav-off-screen,open"
                                                        data-target="#nav,html"> <i class="icon-list"></i> </a>
-
                                                        <a
             href="/" class="navbar-brand text-lt"> <i
             class="icon-earphones"></i> <img src="/assets/logo.png" alt="." class="hide">
@@ -29,8 +28,10 @@
             </a>
                 <ul class="dropdown-menu animated fadeInRight">
                     <li><a href="/users/edit">Edit Profile</a></li>
-                    <li><a href="#"> <span
-                            class="badge bg-danger pull-right">0</span> Favorites </a></li>
+                    <li><a href="/favourites"> <span
+                            class="badge bg-danger pull-right"><%= current_user.favourites.count%></span> Favorites </a></li>
+                    <li><a href="/likes"> <span
+                            class="badge bg-safe pull-right"><%= current_user.likes.count%></span> Likes </a></li>
                     <li class="divider"></li>
                     <li>
                       <%= link_to "Logout", destroy_user_session_path, method: :delete  %>

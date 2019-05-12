@@ -16,7 +16,7 @@ class TracksController < ApplicationController
       @header_title = "Your relevant tracks"
     else
       @header_title = "Your search results for: " + tracksFilter
-      @tracks = Track.where("title LIKE :query", query: "%#{tracksFilter}%")
+      @tracks = Track.where("lower(title) LIKE :query", query: "%#{tracksFilter.downcase}%")
     end
   end
 end
