@@ -303,7 +303,7 @@ describe "User Edit", type: :feature do
   	expect(find_field('Current password').value).to eq nil
   end
 
-  it "Inalid Edit" do
+  it "Invalid Edit" do
     visit "/"
     click_link "Sign up"
     fill_in "Email", with: valid_attributes[:email]

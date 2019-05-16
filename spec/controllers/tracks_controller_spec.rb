@@ -49,6 +49,16 @@ RSpec.describe TracksController, type: :controller do
       expect(assigns(:tracks)).to match_array([new_tracks[0], new_tracks[1], new_tracks[2], new_tracks[3]])
     end
 
+    it "search tracks for multi track case insensitive" do
+      new_tracks = FactoryBot.create_list(:track, 6)
+      new_tracks[1].title = new_tracks[0].title.upcase
+      new_tracks[2].title = new_tracks[0].title.downcase
+      new_tracks[1].save
+      new_tracks[2].save
+      get :index, :params => {track: new_tracks[0].title}
+      expect(assigns(:tracks)).to match_array([new_tracks[0], new_tracks[1], new_tracks[2]])
+    end
+
     it "search tracks for no track" do
       new_tracks = FactoryBot.create_list(:track, 4)
       get :index, :params => {track: 'wrong unmatched title #201231203'}
